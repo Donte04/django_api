@@ -1,0 +1,14 @@
+{% extends "myapi/site.html" %}
+{% block title %} View all files {% endblock %}
+{% block body %}
+  {% if files %}
+    <ul>
+      {% for file in files %}
+        <li><a href="{% url 'file' file.id %}">{{file.name}}</a></li>
+        <!-- <li><a href=`/file/{{d.id}}`>{{d.name}}</a></li> -->
+      {% endfor %}
+    </ul>
+  {% else %}
+  <p>You better upload some files!</p>
+  {% endif %}
+{% endblock %}

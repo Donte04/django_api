@@ -19,5 +19,7 @@ from myapi import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index)
+    path('', views.index),
+    path('myapi/', views.myapi, name='myapi'),
+    path('file/<int:file_id>/', views.file, name='file')
 ]
