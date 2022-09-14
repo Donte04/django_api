@@ -1,25 +1,14 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from .models import File
-
-data = [
-    {'id':0,
-     'name':'file1.txt',
-     'type':'txt'},
-    {'id':1,
-     'name':'file2.png',
-     'type':'png'},
-    {'id':2,
-     'name':'file3.pdf',
-     'type':'pdf'},
-]
+from .forms import UploadForm
 
 def index(request):
     return HttpResponse('Hello there')
 
 def myapi(request):
     data = File.objects.all()
-    return render(request, 'myapi/myapi.html', {'files': data})
+    return render(request, 'myapi/myapi.html', {'files': data, 'form':UploadForm})
 
 def file(request, file_id):
     #f = next((item for item in data if item['id'] == file_id), None) # where next() is a python generator
@@ -35,7 +24,6 @@ def edit(request, file_id):
     file_type = request.POST.get('type')
     f = File.objects.get(pk=file_id)
     print(name, file_type, f)
-
     if f:
         if name:
             f.name = name
@@ -53,7 +41,7 @@ def delete(request, file_id):
     return redirect(myapi)
 
 def upload(request):
-    file = request.POST.get('file')
-    if file:
-        file.save()
+    form = UploadForm(request.POST, request.FILES)
+    if form.is_valid():
+        form.save()
     return redirect(myapi)

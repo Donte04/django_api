@@ -28,4 +28,5 @@ urlpatterns = [
     path('myapi/delete/<int:file_id>/', views.delete, name='delete'),
     path('myapi/upload/', views.upload, name='upload')
 ]
+# for static media files
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
