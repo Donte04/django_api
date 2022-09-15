@@ -1,7 +1,8 @@
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from django.shortcuts import render, redirect
 from .models import File
 from .forms import UploadForm
+from .serializers import FileSerializer
 
 def index(request):
     return HttpResponse('Hello there')
@@ -45,3 +46,13 @@ def upload(request):
     if form.is_valid():
         form.save()
     return redirect(myapi)
+
+# API version
+
+def files(request):
+    data = File.objects.all()
+    serializer = FileSerializer(data, many=True)
+    return JsonResponse({'file': serializer.data})
+
+def home(request):
+    return HttpResponse("Hello there")

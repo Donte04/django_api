@@ -26,7 +26,9 @@ urlpatterns = [
     path('file/<int:file_id>/', views.file, name='file'),
     path('myapi/edit/<int:file_id>/', views.edit, name='edit'),
     path('myapi/delete/<int:file_id>/', views.delete, name='delete'),
-    path('myapi/upload/', views.upload, name='upload')
+    path('myapi/upload/', views.upload, name='upload'),
+    path('', views.home, name='home'),
+    path('api/files/', views.files, name='files'),
 ]
 # for static media files
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
